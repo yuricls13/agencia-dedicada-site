@@ -8,9 +8,31 @@
   <meta name="theme-color" content="#0B0058">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://thesvg.org">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Agência Dedicada — Marketing Digital para Negócios Locais">
+  <meta property="og:description" content="Presença digital completa e anúncios que convertem para clínicas, salões, academias e restaurantes.">
+  <meta property="og:url"         content="https://agenciadedicada.com.br">
+  <meta property="og:image"       content="assets/hero-bg.png">
+  <meta name="twitter:card"       content="summary_large_image">
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230B0058'/><text x='16' y='23' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='18' fill='white'>D</text></svg>">
   <style>
+    /* ═══════════════════════════════════════
+       SKIP LINK
+    ═══════════════════════════════════════ */
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--cta); color: var(--white);
+      padding: .5rem 1rem; border-radius: var(--r-md);
+      font-weight: 600; z-index: 9999;
+      transition: top 200ms;
+    }
+    .skip-link:focus { top: 1rem; }
+
     /* ═══════════════════════════════════════
        RESET & BASE
     ═══════════════════════════════════════ */
@@ -242,7 +264,9 @@
 
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(11,0,88,.95) 0%, rgba(11,0,88,.7) 50%, rgba(26,0,128,.8) 100%);
+      background:
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") repeat,
+        linear-gradient(135deg, rgba(11,0,88,.95) 0%, rgba(11,0,88,.7) 50%, rgba(26,0,128,.8) 100%);
       z-index: 1;
     }
 
@@ -290,6 +314,11 @@
     }
     .proof-val span { color: var(--cta); }
     .proof-label { font-size: .8125rem; color: rgba(255,255,255,.5); }
+
+    .hero-trust {
+      font-size: .8rem; color: rgba(255,255,255,.45);
+      margin-top: .875rem; letter-spacing: .01em;
+    }
 
     .hero-visual {
       position: relative; display: none;
@@ -392,18 +421,17 @@
     }
     .brand-logo {
       display: flex; align-items: center; gap: .5rem;
-      opacity: .55; transition: opacity var(--tr);
-      filter: grayscale(1);
+      opacity: .85; transition: opacity var(--tr);
     }
-    .brand-logo:hover { opacity: .8; filter: grayscale(0); }
+    .brand-logo:hover { opacity: 1; }
     .brand-logo img { height: 24px; width: auto; }
     .brand-logo span { font-size: .875rem; font-weight: 600; color: var(--muted); }
 
-    /* Brand SVG in channel cards (white filter for dark bg) */
-    .ch-icon-brand { background: rgba(255,255,255,.12) !important; }
-    .brand-svg-white { filter: brightness(0) invert(1); opacity: .9; }
+    /* Brand SVG in channel cards (coloridos, fundo branco) */
+    .ch-icon-brand { background: rgba(255,255,255,.95) !important; }
+    .brand-svg-white { filter: none; opacity: 1; }
 
-    /* Pain card brand logos row */
+    /* Pain card brand logos row (coloridas) */
     .pain-icon-row {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 1.125rem;
@@ -411,18 +439,16 @@
     .pain-icon { margin-bottom: 0; }
     .pain-brand-logos { display: flex; gap: .5rem; align-items: center; }
     .pain-brand {
-      height: 20px; width: auto; opacity: .45;
-      filter: grayscale(1);
-      transition: opacity var(--tr), filter var(--tr);
+      height: 20px; width: auto; opacity: 1;
+      filter: none;
     }
-    .pain-card:hover .pain-brand { opacity: .7; filter: grayscale(0); }
 
-    /* Brand icons in service list */
+    /* Brand icons in service list (coloridos) */
     .svc-brand-icon {
-      height: 15px; width: auto; opacity: .75;
+      height: 15px; width: auto; opacity: 1;
       flex-shrink: 0; margin-right: .125rem;
     }
-    .svc-brand-icon-invert { filter: brightness(0) invert(1); opacity: .6; }
+    .svc-brand-icon-invert { filter: none; opacity: 1; }
 
     /* ═══════════════════════════════════════
        PROBLEM SECTION
@@ -495,6 +521,7 @@
       border-radius: var(--r-xl); padding: 2.25rem;
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
+      height: 100%;
     }
     .svc-express {
       background: var(--white);
@@ -530,15 +557,10 @@
       display: flex; align-items: center; gap: .625rem;
       font-size: .875rem;
     }
-    .svc-list li::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .svc-list li::before { display: none; }
     .svc-express .svc-list li { color: var(--text); }
-    .svc-express .svc-list li::before { background: var(--success); }
     .svc-trafego .svc-list li { color: rgba(255,255,255,.8); }
-    .svc-trafego .svc-list li::before { background: var(--cta); }
-    .svc-list .svc-brand-icon { height: 14px; width: auto; flex-shrink: 0; opacity: .7; }
+    .svc-list .svc-brand-icon { height: 14px; width: auto; flex-shrink: 0; opacity: 1; }
 
     .svc-divider {
       margin: 1.75rem 0 1.75rem;
@@ -582,6 +604,13 @@
       border-radius: var(--r-lg); padding: 1.625rem;
       transition: background var(--tr), transform var(--tr), border-color var(--tr);
       display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    .ch-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(37,99,235,0));
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
     }
     .ch-card:hover {
       background: rgba(255,255,255,.09);
@@ -661,9 +690,9 @@
     }
 
     .levels-title {
-      font-family: var(--ff-head); font-size: .9375rem; font-weight: 700;
+      font-family: var(--ff-head); font-size: .75rem; font-weight: 700;
       color: rgba(255,255,255,.7); margin-bottom: 1.5rem;
-      text-transform: uppercase; letter-spacing: .06em; font-size: .75rem;
+      text-transform: uppercase; letter-spacing: .06em;
     }
 
     .level-items { display: flex; flex-direction: column; gap: 0; }
@@ -883,10 +912,16 @@
     }
     .faq-item.open .faq-q i { transform: rotate(180deg); }
     .faq-a {
-      display: none; padding: 0 1.5rem 1.25rem;
+      overflow: hidden;
+      max-height: 0;
+      padding: 0 1.5rem;
       font-size: .9375rem; color: var(--muted); line-height: 1.75;
+      transition: max-height 260ms ease-out, padding 260ms ease-out;
     }
-    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-a {
+      max-height: 400px;
+      padding: 0 1.5rem 1.25rem;
+    }
 
     /* ═══════════════════════════════════════
        CTA FINAL
@@ -976,8 +1011,18 @@
     .footer-links a {
       font-size: .875rem; color: rgba(255,255,255,.55);
       transition: color var(--tr);
+      position: relative; display: inline-block;
+    }
+    .footer-links a::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 0;
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,.45);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--tr);
     }
     .footer-links a:hover { color: var(--white); }
+    .footer-links a:hover::after { transform: scaleX(1); }
 
     .footer-bottom {
       display: flex; flex-direction: column; align-items: center; gap: .75rem;
@@ -1005,6 +1050,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       .sr { opacity: 1; transform: none; transition: none; }
+      .btn:hover { transform: none; }
+      .ch-card:hover, .niche-card:hover, .agent-item:hover,
+      .price-card:hover, .price-card.featured:hover { transform: none; }
+      .faq-a { transition: none; }
     }
 
     /* ═══════════════════════════════════════
@@ -1033,8 +1082,9 @@
       background: rgba(255,255,255,.1);
       border-color: var(--cta);
       transform: scale(1.03);
+      box-shadow: 0 0 40px rgba(249,115,22,.18), 0 8px 32px rgba(249,115,22,.12);
     }
-    .price-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+    .price-card.featured:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 0 60px rgba(249,115,22,.25), 0 16px 48px rgba(249,115,22,.18); }
     .price-rec-badge {
       position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
       background: var(--cta); color: var(--white);
@@ -1124,7 +1174,7 @@
       grid-template-columns: 1fr;
       width: 100%; margin-top: 2.5rem;
     }
-    @media(min-width:640px){ .vagas-grid{ grid-template-columns: repeat(3,1fr); } }
+    @media(min-width:640px){ .vagas-grid{ grid-template-columns: repeat(4,1fr); } }
     .vaga-card {
       background: rgba(255,255,255,.055);
       border: 1px solid rgba(255,255,255,.09);
@@ -1151,12 +1201,25 @@
     }
     .vagas-bar-track {
       width: 100%; height: 8px;
-      background: rgba(255,255,255,.1); border-radius: var(--r-pill); overflow: hidden;
+      background: rgba(255,255,255,.1); border-radius: var(--r-pill);
+      overflow: hidden; position: relative;
+    }
+    .vagas-bar-track::after {
+      content: '';
+      position: absolute; top: 0; left: -30%;
+      width: 30%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      animation: shimmerBar 2.4s ease-in-out infinite;
+    }
+    @keyframes shimmerBar {
+      0% { left: -30%; }
+      100% { left: 110%; }
     }
     .vagas-bar-fill {
       height: 100%; width: 37.5%;
       background: linear-gradient(90deg, var(--success), #22C55E);
       border-radius: var(--r-pill);
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .vagas-cta { margin-top: 2.5rem; }
 
@@ -1177,6 +1240,8 @@
 </head>
 <body>
 
+  <a href="#hero" class="skip-link">Ir para o conteúdo principal</a>
+
   <!-- ─── NAVBAR ─── -->
   <nav id="navbar" aria-label="Navegação principal">
     <div class="container">
@@ -1196,7 +1261,7 @@
           <li><a href="#niches">Para quem</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a href="#cta-final" class="btn btn-cta btn-sm nav-cta">
+        <a rel="noopener noreferrer" target="_blank" href="https://wa.me/5579988385958?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20serviços%20da%20Agência%20Dedicada." class="btn btn-cta btn-sm nav-cta">
           <i data-lucide="arrow-right"></i> Falar agora
         </a>
         <button class="hamburger" aria-label="Menu" id="hambBtn">
@@ -1211,7 +1276,7 @@
       <a href="#pricing"   onclick="closeMobile()">Preços</a>
       <a href="#niches"    onclick="closeMobile()">Para quem é</a>
       <a href="#faq"       onclick="closeMobile()">FAQ</a>
-      <a href="#cta-final" onclick="closeMobile()" style="color:var(--cta);font-weight:700;">Falar agora →</a>
+      <a rel="noopener noreferrer" target="_blank" href="https://wa.me/5579988385958?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20serviços%20da%20Agência%20Dedicada." onclick="closeMobile()" style="color:var(--cta);font-weight:700;">Falar agora →</a>
     </div>
   </nav>
 
@@ -1230,29 +1295,30 @@
             Gerimos sua presença digital do zero ao fim — Instagram, Google, anúncios e e-mail. Você foca no seu negócio. A gente cuida do resto.
           </p>
           <div class="hero-btns sr sr-delay-3">
-            <a href="#cta-final" class="btn btn-cta">
+            <a rel="noopener noreferrer" target="_blank" href="https://wa.me/5579988385958?text=Olá!%20Quero%20mais%20clientes%20para%20o%20meu%20negócio.%20Vi%20o%20site%20da%20Agência%20Dedicada." class="btn btn-cta">
               <i data-lucide="arrow-right"></i> Quero mais clientes
             </a>
             <a href="#services" class="btn btn-ghost-white">
               Ver como funciona
             </a>
           </div>
+          <p class="hero-trust sr sr-delay-3"><i data-lucide="shield-check" style="width:13px;height:13px;display:inline;vertical-align:middle;margin-right:.25rem"></i> Sem taxa de setup &nbsp;·&nbsp; Sem fidelidade &nbsp;·&nbsp; Garantia de 30 dias</p>
           <div class="hero-proof sr sr-delay-4">
             <div class="proof-item">
-              <div class="proof-val">2<span>+</span></div>
-              <div class="proof-label">Serviços especializados</div>
+              <div class="proof-val">30<span>dias</span></div>
+              <div class="proof-label">Para primeiros resultados</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-val">R$0</div>
+              <div class="proof-label">Taxa de setup</div>
             </div>
             <div class="proof-item">
               <div class="proof-val">5<span>+</span></div>
               <div class="proof-label">Canais gerenciados</div>
             </div>
             <div class="proof-item">
-              <div class="proof-val">14</div>
-              <div class="proof-label">Blocos de conversão</div>
-            </div>
-            <div class="proof-item">
-              <div class="proof-val">N5<span>→1</span></div>
-              <div class="proof-label">Funil de anúncios</div>
+              <div class="proof-val">8</div>
+              <div class="proof-label">Vagas por vez</div>
             </div>
           </div>
         </div>
@@ -1303,72 +1369,40 @@
       <p class="brands-label">Plataformas que gerenciamos para você</p>
       <div class="brands-logos">
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/instagram/default.svg" alt="Instagram" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/instagram/default.svg" alt="Instagram" width="24" height="24">
           <span>Instagram</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/meta/default.svg" alt="Meta Ads" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/meta/default.svg" alt="Meta Ads" width="24" height="24">
           <span>Meta Ads</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/facebook/default.svg" alt="Facebook" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/facebook/default.svg" alt="Facebook" width="24" height="24">
           <span>Facebook</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/google/default.svg" alt="Google" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/google/default.svg" alt="Google" width="24" height="24">
           <span>Google</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/google-maps/default.svg" alt="Google Maps" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/google-maps/default.svg" alt="Google Maps" width="24" height="24">
           <span>Google Maps</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/google-ads/default.svg" alt="Google Ads" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/google-ads/default.svg" alt="Google Ads" width="24" height="24">
           <span>Google Ads</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/google-analytics/default.svg" alt="Google Analytics" width="24" height="24">
-          <span>Analytics</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/gmail/default.svg" alt="Gmail" width="24" height="24">
-          <span>Gmail</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/whatsapp/default.svg" alt="WhatsApp" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/whatsapp/default.svg" alt="WhatsApp" width="24" height="24">
           <span>WhatsApp</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/youtube/default.svg" alt="YouTube" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/youtube/default.svg" alt="YouTube" width="24" height="24">
           <span>YouTube</span>
         </div>
         <div class="brand-logo">
-          <img src="https://thesvg.org/icons/mailchimp/default.svg" alt="Mailchimp" width="24" height="24">
+          <img loading="lazy" src="https://thesvg.org/icons/mailchimp/default.svg" alt="Mailchimp" width="24" height="24">
           <span>Mailchimp</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/wordpress/default.svg" alt="WordPress" width="24" height="24">
-          <span>WordPress</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/semrush/default.svg" alt="Semrush" width="24" height="24">
-          <span>Semrush</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/canva/default.svg" alt="Canva" width="24" height="24">
-          <span>Canva</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/hubspot/default.svg" alt="HubSpot" width="24" height="24">
-          <span>HubSpot</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/zapier/default.svg" alt="Zapier" width="24" height="24">
-          <span>Zapier</span>
-        </div>
-        <div class="brand-logo">
-          <img src="https://thesvg.org/icons/linkedin/default.svg" alt="LinkedIn" width="24" height="24">
-          <span>LinkedIn</span>
         </div>
       </div>
     </div>
@@ -1387,8 +1421,8 @@
           <div class="pain-icon-row">
             <div class="pain-icon"><i data-lucide="eye-off"></i></div>
             <div class="pain-brand-logos">
-              <img src="https://thesvg.org/icons/google/default.svg" alt="Google" title="Google" class="pain-brand">
-              <img src="https://thesvg.org/icons/google-maps/default.svg" alt="Google Maps" title="Google Maps" class="pain-brand">
+              <img loading="lazy" src="https://thesvg.org/icons/google/default.svg" alt="Google" title="Google" class="pain-brand">
+              <img loading="lazy" src="https://thesvg.org/icons/google-maps/default.svg" alt="Google Maps" title="Google Maps" class="pain-brand">
             </div>
           </div>
           <h3>Invisível no Google</h3>
@@ -1398,8 +1432,8 @@
           <div class="pain-icon-row">
             <div class="pain-icon"><i data-lucide="eye-off" style="opacity:0;width:0"></i></div>
             <div class="pain-brand-logos">
-              <img src="https://thesvg.org/icons/instagram/default.svg" alt="Instagram" title="Instagram" class="pain-brand">
-              <img src="https://thesvg.org/icons/facebook/default.svg" alt="Facebook" title="Facebook" class="pain-brand">
+              <img loading="lazy" src="https://thesvg.org/icons/instagram/default.svg" alt="Instagram" title="Instagram" class="pain-brand">
+              <img loading="lazy" src="https://thesvg.org/icons/facebook/default.svg" alt="Facebook" title="Facebook" class="pain-brand">
             </div>
           </div>
           <h3>Instagram que não converte</h3>
@@ -1409,8 +1443,8 @@
           <div class="pain-icon-row">
             <div class="pain-icon"><i data-lucide="trending-down"></i></div>
             <div class="pain-brand-logos">
-              <img src="https://thesvg.org/icons/meta/default.svg" alt="Meta Ads" title="Meta Ads" class="pain-brand">
-              <img src="https://thesvg.org/icons/google-ads/default.svg" alt="Google Ads" title="Google Ads" class="pain-brand">
+              <img loading="lazy" src="https://thesvg.org/icons/meta/default.svg" alt="Meta Ads" title="Meta Ads" class="pain-brand">
+              <img loading="lazy" src="https://thesvg.org/icons/google-ads/default.svg" alt="Google Ads" title="Google Ads" class="pain-brand">
             </div>
           </div>
           <h3>Anúncio sem retorno</h3>
@@ -1438,11 +1472,11 @@
           <h3>Marketing Total Express</h3>
           <p>Presença digital orgânica completa e consistente. Gerimos todos os canais do seu negócio para que você apareça onde o cliente procura — sem você precisar gerenciar nada.</p>
           <ul class="svc-list" role="list">
-            <li><img src="https://thesvg.org/icons/instagram/default.svg" alt="" class="svc-brand-icon"> Instagram otimizado + 15 posts/mês</li>
-            <li><img src="https://thesvg.org/icons/google-maps/default.svg" alt="" class="svc-brand-icon"> Google Meu Negócio ativo e ranqueado</li>
-            <li><img src="https://thesvg.org/icons/semrush/default.svg" alt="" class="svc-brand-icon"> SEO + Landing Page de conversão</li>
-            <li><img src="https://thesvg.org/icons/mailchimp/default.svg" alt="" class="svc-brand-icon"> E-mail marketing para sua base</li>
-            <li><img src="https://thesvg.org/icons/canva/default.svg" alt="" class="svc-brand-icon"> Stories e Reels prontos para publicar</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/instagram/default.svg" alt="" class="svc-brand-icon"> Instagram otimizado + 15 posts/mês</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/google-maps/default.svg" alt="" class="svc-brand-icon"> Google Meu Negócio ativo e ranqueado</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/semrush/default.svg" alt="" class="svc-brand-icon"> SEO + Landing Page de conversão</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/mailchimp/default.svg" alt="" class="svc-brand-icon"> E-mail marketing para sua base</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/canva/default.svg" alt="" class="svc-brand-icon"> Stories e Reels prontos para publicar</li>
           </ul>
           <hr class="svc-divider">
           <a href="#channels" class="svc-anchor">Ver todos os canais <i data-lucide="arrow-right"></i></a>
@@ -1452,11 +1486,11 @@
           <h3>Tráfego Total</h3>
           <p>Leads qualificados via anúncios pagos no Meta Ads. Funil completo — do público frio que nunca ouviu falar de você até o cliente pronto para fechar.</p>
           <ul class="svc-list" role="list">
-            <li>Funil do N5 ao N1 (5 Níveis de Consciência)</li>
-            <li><img src="https://thesvg.org/icons/meta/default.svg" alt="" class="svc-brand-icon svc-brand-icon-invert"> Criação e gestão de anúncios no Meta Ads</li>
-            <li><img src="https://thesvg.org/icons/facebook/default.svg" alt="" class="svc-brand-icon svc-brand-icon-invert"> Testes A/B de ângulos criativos</li>
-            <li>Retargeting para público quente</li>
-            <li><img src="https://thesvg.org/icons/instagram/default.svg" alt="" class="svc-brand-icon svc-brand-icon-invert"> Conteúdo orgânico transformado em anúncio</li>
+            <li><i data-lucide="triangle" style="width:14px;height:14px;flex-shrink:0;color:var(--cta)"></i> Funil do N5 ao N1 (5 Níveis de Consciência)</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/meta/default.svg" alt="" class="svc-brand-icon svc-brand-icon-invert"> Criação e gestão de anúncios no Meta Ads</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/facebook/default.svg" alt="" class="svc-brand-icon svc-brand-icon-invert"> Testes A/B de ângulos criativos</li>
+            <li><i data-lucide="target" style="width:14px;height:14px;flex-shrink:0;color:var(--cta)"></i> Retargeting para público quente</li>
+            <li><img loading="lazy" src="https://thesvg.org/icons/instagram/default.svg" alt="" class="svc-brand-icon svc-brand-icon-invert"> Conteúdo orgânico transformado em anúncio</li>
           </ul>
           <hr class="svc-divider">
           <a href="#funil" class="svc-anchor">Ver o funil de anúncios <i data-lucide="arrow-right"></i></a>
@@ -1477,7 +1511,7 @@
         <div class="ch-card sr sr-delay-1">
           <div class="ch-icon-wrap">
             <div class="ch-icon ch-icon-brand">
-              <img src="https://thesvg.org/icons/instagram/default.svg" alt="" width="22" height="22" class="brand-svg-white">
+              <img loading="lazy" src="https://thesvg.org/icons/instagram/default.svg" alt="" width="22" height="22" class="brand-svg-white">
             </div>
             <span class="ch-num">Canal 01</span>
           </div>
@@ -1493,7 +1527,7 @@
         <div class="ch-card sr sr-delay-2">
           <div class="ch-icon-wrap">
             <div class="ch-icon ch-icon-brand">
-              <img src="https://thesvg.org/icons/google-maps/default.svg" alt="" width="22" height="22" class="brand-svg-white">
+              <img loading="lazy" src="https://thesvg.org/icons/google-maps/default.svg" alt="" width="22" height="22" class="brand-svg-white">
             </div>
             <span class="ch-num">Canal 02</span>
           </div>
@@ -1509,7 +1543,7 @@
         <div class="ch-card sr sr-delay-3">
           <div class="ch-icon-wrap">
             <div class="ch-icon ch-icon-brand">
-              <img src="https://thesvg.org/icons/semrush/default.svg" alt="" width="22" height="22" class="brand-svg-white">
+              <img loading="lazy" src="https://thesvg.org/icons/semrush/default.svg" alt="" width="22" height="22" class="brand-svg-white">
             </div>
             <span class="ch-num">Canal 03</span>
           </div>
@@ -1524,7 +1558,7 @@
         <div class="ch-card sr sr-delay-4">
           <div class="ch-icon-wrap">
             <div class="ch-icon ch-icon-brand">
-              <img src="https://thesvg.org/icons/wordpress/default.svg" alt="" width="22" height="22" class="brand-svg-white">
+              <img loading="lazy" src="https://thesvg.org/icons/wordpress/default.svg" alt="" width="22" height="22" class="brand-svg-white">
             </div>
             <span class="ch-num">Canal 04</span>
           </div>
@@ -1539,7 +1573,7 @@
         <div class="ch-card sr sr-delay-5">
           <div class="ch-icon-wrap">
             <div class="ch-icon ch-icon-brand">
-              <img src="https://thesvg.org/icons/mailchimp/default.svg" alt="" width="22" height="22" class="brand-svg-white">
+              <img loading="lazy" src="https://thesvg.org/icons/mailchimp/default.svg" alt="" width="22" height="22" class="brand-svg-white">
             </div>
             <span class="ch-num">Canal 05</span>
           </div>
@@ -1723,13 +1757,13 @@
           </div>
           <hr class="price-divider">
           <ul class="price-feats">
-            <li class="pf-check">Instagram — 8 posts/mês</li>
-            <li class="pf-check">Google Meu Negócio — 4 posts/mês</li>
-            <li class="pf-check">SEO básico do perfil</li>
-            <li class="pf-check">Relatório mensal simplificado</li>
-            <li class="pf-check">Suporte via WhatsApp (dias úteis)</li>
+            <li><i data-lucide="check" class="pf-check"></i>Instagram — 8 posts/mês</li>
+            <li><i data-lucide="check" class="pf-check"></i>Google Meu Negócio — 4 posts/mês</li>
+            <li><i data-lucide="check" class="pf-check"></i>SEO básico do perfil</li>
+            <li><i data-lucide="check" class="pf-check"></i>Relatório mensal simplificado</li>
+            <li><i data-lucide="check" class="pf-check"></i>Suporte via WhatsApp (dias úteis)</li>
           </ul>
-          <a href="https://wa.me/5579988385958?text=Olá!%20Tenho%20interesse%20no%20plano%20Essencial%20da%20Agência%20Dedicada." class="btn btn-navy price-cta">
+          <a rel="noopener noreferrer" href="https://wa.me/5579988385958?text=Olá!%20Tenho%20interesse%20no%20plano%20Essencial%20da%20Agência%20Dedicada." class="btn btn-navy price-cta">
             Começar agora <i data-lucide="arrow-right"></i>
           </a>
         </div>
@@ -1745,15 +1779,15 @@
           </div>
           <hr class="price-divider">
           <ul class="price-feats">
-            <li class="pf-check">Instagram — 16 posts/mês + stories</li>
-            <li class="pf-check">Google Meu Negócio — 8 posts/mês</li>
-            <li class="pf-check">SEO completo + monitoramento</li>
-            <li class="pf-check">1 Landing Page inclusa</li>
-            <li class="pf-check">E-mail marketing mensal</li>
-            <li class="pf-check">Relatório mensal detalhado</li>
-            <li class="pf-check">Suporte prioritário</li>
+            <li><i data-lucide="check" class="pf-check"></i>Instagram — 16 posts/mês + stories</li>
+            <li><i data-lucide="check" class="pf-check"></i>Google Meu Negócio — 8 posts/mês</li>
+            <li><i data-lucide="check" class="pf-check"></i>SEO completo + monitoramento</li>
+            <li><i data-lucide="check" class="pf-check"></i>1 Landing Page inclusa</li>
+            <li><i data-lucide="check" class="pf-check"></i>E-mail marketing mensal</li>
+            <li><i data-lucide="check" class="pf-check"></i>Relatório mensal detalhado</li>
+            <li><i data-lucide="check" class="pf-check"></i>Suporte prioritário</li>
           </ul>
-          <a href="https://wa.me/5579988385958?text=Olá!%20Tenho%20interesse%20no%20plano%20Profissional%20da%20Agência%20Dedicada." class="btn btn-cta price-cta">
+          <a rel="noopener noreferrer" href="https://wa.me/5579988385958?text=Olá!%20Tenho%20interesse%20no%20plano%20Profissional%20da%20Agência%20Dedicada." class="btn btn-cta price-cta">
             Começar agora <i data-lucide="arrow-right"></i>
           </a>
         </div>
@@ -1768,16 +1802,16 @@
           </div>
           <hr class="price-divider">
           <ul class="price-feats">
-            <li class="pf-check">Conteúdo diário no Instagram</li>
-            <li class="pf-check">Stories 5x por semana</li>
-            <li class="pf-check">Google Meu Negócio — diário</li>
-            <li class="pf-check">SEO avançado + relatório de ranking</li>
-            <li class="pf-check">Landing Pages ilimitadas</li>
-            <li class="pf-check">E-mail marketing semanal</li>
-            <li class="pf-check">Relatório executivo mensal</li>
-            <li class="pf-check">Gerente de conta dedicado</li>
+            <li><i data-lucide="check" class="pf-check"></i>Conteúdo diário no Instagram</li>
+            <li><i data-lucide="check" class="pf-check"></i>Stories 5x por semana</li>
+            <li><i data-lucide="check" class="pf-check"></i>Google Meu Negócio — diário</li>
+            <li><i data-lucide="check" class="pf-check"></i>SEO avançado + relatório de ranking</li>
+            <li><i data-lucide="check" class="pf-check"></i>Landing Pages ilimitadas</li>
+            <li><i data-lucide="check" class="pf-check"></i>E-mail marketing semanal</li>
+            <li><i data-lucide="check" class="pf-check"></i>Relatório executivo mensal</li>
+            <li><i data-lucide="check" class="pf-check"></i>Gerente de conta dedicado</li>
           </ul>
-          <a href="https://wa.me/5579988385958?text=Olá!%20Tenho%20interesse%20no%20plano%20Dominante%20da%20Agência%20Dedicada." class="btn btn-navy price-cta">
+          <a rel="noopener noreferrer" href="https://wa.me/5579988385958?text=Olá!%20Tenho%20interesse%20no%20plano%20Dominante%20da%20Agência%20Dedicada." class="btn btn-navy price-cta">
             Começar agora <i data-lucide="arrow-right"></i>
           </a>
         </div>
@@ -1794,13 +1828,73 @@
             <div class="trafego-price-main">R$ 1.997<span>/mês</span></div>
             <div class="trafego-price-sub">+ R$ 997 setup no 1º mês</div>
           </div>
-          <a href="https://wa.me/5579988385958?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Tráfego%20Total." class="btn btn-cta" style="margin-top:.875rem;width:100%;justify-content:center;">
+          <a rel="noopener noreferrer" href="https://wa.me/5579988385958?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Tráfego%20Total." class="btn btn-cta" style="margin-top:.875rem;width:100%;justify-content:center;">
             Quero anúncios <i data-lucide="zap"></i>
           </a>
         </div>
       </div>
 
       <p class="pricing-note-bottom sr sr-delay-4"><strong>Verba de anúncios não está inclusa.</strong> Recomendamos R$ 3.000/mês Meta Ads + R$ 2.000/mês Google Ads para resultados consistentes.</p>
+    </div>
+  </section>
+
+  <!-- ─── DEPOIMENTOS ─── -->
+  <!-- ⚠️ Substituir os 3 cards abaixo com depoimentos reais de clientes -->
+  <section id="testimonials" class="section-pad" aria-label="Depoimentos de clientes">
+    <div class="container">
+      <div class="testi-header">
+        <span class="label label-white sr"><i data-lucide="star"></i> Resultados reais</span>
+        <h2 class="section-title section-title-white sr sr-delay-1" style="margin:.75rem 0 1rem">O que nossos clientes dizem.</h2>
+        <p class="section-lead section-lead-white sr sr-delay-2" style="margin:0 auto">Negócios locais que passaram a aparecer onde o cliente procura.</p>
+      </div>
+      <div class="testi-grid">
+
+        <!-- ⚠️ CARD 1 — Substituir com depoimento real -->
+        <div class="testi-card sr sr-delay-1">
+          <div class="testi-stars">
+            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          </div>
+          <p class="testi-quote">"[Substituir com depoimento real do cliente — o que mudou, qual resultado concreto obteve, em quanto tempo.]"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">[I]</div>
+            <div>
+              <div class="testi-name">[Nome do Cliente]</div>
+              <div class="testi-role">[Tipo de Negócio] · [Cidade]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⚠️ CARD 2 — Substituir com depoimento real -->
+        <div class="testi-card sr sr-delay-2">
+          <div class="testi-stars">
+            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          </div>
+          <p class="testi-quote">"[Substituir com depoimento real do cliente — o que mudou, qual resultado concreto obteve, em quanto tempo.]"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">[I]</div>
+            <div>
+              <div class="testi-name">[Nome do Cliente]</div>
+              <div class="testi-role">[Tipo de Negócio] · [Cidade]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⚠️ CARD 3 — Substituir com depoimento real -->
+        <div class="testi-card sr sr-delay-3">
+          <div class="testi-stars">
+            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          </div>
+          <p class="testi-quote">"[Substituir com depoimento real do cliente — o que mudou, qual resultado concreto obteve, em quanto tempo.]"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">[I]</div>
+            <div>
+              <div class="testi-name">[Nome do Cliente]</div>
+              <div class="testi-role">[Tipo de Negócio] · [Cidade]</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -1920,8 +2014,8 @@
         </div>
 
         <div class="vagas-cta sr sr-delay-4">
-          <a href="https://wa.me/5579988385958?text=Olá!%20Quero%20garantir%20uma%20vaga%20na%20Agência%20Dedicada." class="btn btn-cta" style="padding:1rem 2.25rem;font-size:1.0625rem;">
-            <i data-lucide="message-circle"></i> Garantir minha vaga
+          <a rel="noopener noreferrer" href="https://wa.me/5579988385958?text=Olá!%20Quero%20garantir%20uma%20vaga%20na%20Agência%20Dedicada." class="btn btn-cta" style="padding:1rem 2.25rem;font-size:1.0625rem;">
+            <img loading="lazy" src="https://thesvg.org/icons/whatsapp/default.svg" alt="" width="18" height="18" style="filter:brightness(0) invert(1);flex-shrink:0"> Garantir minha vaga
           </a>
           <p style="margin-top:1rem;font-size:.875rem;color:rgba(255,255,255,.5);">Sem compromisso. A conversa é gratuita.</p>
         </div>
@@ -1943,42 +2037,42 @@
             Preciso entender de marketing para trabalhar com vocês?
             <i data-lucide="chevron-down"></i>
           </button>
-          <div class="faq-a" hidden>Não. Nossa missão é exatamente essa: fazer o marketing funcionar para que você foque no seu negócio. Você aprova o que vai ser publicado — o resto é com a gente.</div>
+          <div class="faq-a" aria-hidden="true">Não. Nossa missão é exatamente essa: fazer o marketing funcionar para que você foque no seu negócio. Você aprova o que vai ser publicado — o resto é com a gente.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">
             Em quanto tempo vejo resultado?
             <i data-lucide="chevron-down"></i>
           </button>
-          <div class="faq-a" hidden>Depende do canal. No Google Meu Negócio e Instagram, resultados aparecem em 2 a 4 semanas com publicação consistente. Para anúncios pagos, os primeiros leads chegam nos primeiros dias de campanha ativa.</div>
+          <div class="faq-a" aria-hidden="true">Depende do canal. No Google Meu Negócio e Instagram, resultados aparecem em 2 a 4 semanas com publicação consistente. Para anúncios pagos, os primeiros leads chegam nos primeiros dias de campanha ativa.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">
             Vocês trabalham com qualquer tipo de negócio local?
             <i data-lucide="chevron-down"></i>
           </button>
-          <div class="faq-a" hidden>Nosso foco é em negócios com atendimento local no Brasil: clínicas, salões, academias, restaurantes, escritórios e lojas físicas. Não atendemos e-commerce puro ou negócios sem endereço físico.</div>
+          <div class="faq-a" aria-hidden="true">Nosso foco é em negócios com atendimento local no Brasil: clínicas, salões, academias, restaurantes, escritórios e lojas físicas. Não atendemos e-commerce puro ou negócios sem endereço físico.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">
             Tenho que postar eu mesmo ou vocês publicam?
             <i data-lucide="chevron-down"></i>
           </button>
-          <div class="faq-a" hidden>Entregamos o conteúdo pronto — roteiro, copy, orientação visual. Você aprova e publica com um clique, ou a gente publica com acesso ao perfil. A escolha é sua.</div>
+          <div class="faq-a" aria-hidden="true">Entregamos o conteúdo pronto — roteiro, copy, orientação visual. Você aprova e publica com um clique, ou a gente publica com acesso ao perfil. A escolha é sua.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">
             Vocês só fazem Meta Ads ou também Google Ads?
             <i data-lucide="chevron-down"></i>
           </button>
-          <div class="faq-a" hidden>Atualmente nosso serviço de Tráfego Total é focado em Meta Ads (Facebook e Instagram). O suporte a Google Ads está em fase de desenvolvimento. Para presença orgânica no Google, usamos SEO e Google Meu Negócio.</div>
+          <div class="faq-a" aria-hidden="true">Atualmente nosso serviço de Tráfego Total é focado em Meta Ads (Facebook e Instagram). O suporte a Google Ads está em fase de desenvolvimento. Para presença orgânica no Google, usamos SEO e Google Meu Negócio.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false">
             Como funciona o contrato e o cancelamento?
             <i data-lucide="chevron-down"></i>
           </button>
-          <div class="faq-a" hidden>Trabalhamos com contrato mensal recorrente. Não há fidelidade mínima forçada — se você não estiver satisfeito, pode cancelar com aviso prévio de 30 dias. Acreditamos que resultado é a melhor forma de retenção.</div>
+          <div class="faq-a" aria-hidden="true">Trabalhamos com contrato mensal recorrente. Não há fidelidade mínima forçada — se você não estiver satisfeito, pode cancelar com aviso prévio de 30 dias. Acreditamos que resultado é a melhor forma de retenção.</div>
         </div>
       </div>
     </div>
@@ -1992,8 +2086,8 @@
         <h2 class="cta-h2">Pronto para ter mais clientes <em>todo mês?</em></h2>
         <p class="cta-sub">Fale com um especialista. Em 30 minutos você sabe exatamente o que precisa fazer para crescer — sem enrolação e sem compromisso.</p>
         <div class="cta-btns">
-          <a href="https://wa.me/5579988385958?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20serviços%20de%20marketing%20da%20Agência%20Dedicada." class="btn btn-cta" style="padding:1rem 2.25rem;font-size:1.0625rem;">
-            <i data-lucide="message-circle"></i> Falar no WhatsApp
+          <a rel="noopener noreferrer" href="https://wa.me/5579988385958?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20serviços%20de%20marketing%20da%20Agência%20Dedicada." class="btn btn-cta" style="padding:1rem 2.25rem;font-size:1.0625rem;">
+            <img loading="lazy" src="https://thesvg.org/icons/whatsapp/default.svg" alt="" width="18" height="18" style="filter:brightness(0) invert(1);flex-shrink:0"> Falar no WhatsApp
           </a>
           <a href="mailto:contato@agenciadedicada.com.br" class="btn btn-ghost-white" style="padding:1rem 2.25rem;font-size:1.0625rem;">
             <i data-lucide="mail"></i> Enviar e-mail
@@ -2019,16 +2113,16 @@
           <p>Marketing digital para negócios locais no Brasil. Presença orgânica completa e tráfego pago que converte.</p>
           <div class="footer-socials">
             <a href="#" class="social-link" aria-label="Instagram">
-              <img src="https://thesvg.org/icons/instagram/default.svg" alt="" width="16" height="16">
+              <img loading="lazy" src="https://thesvg.org/icons/instagram/default.svg" alt="" width="16" height="16">
             </a>
             <a href="#" class="social-link" aria-label="Facebook">
-              <img src="https://thesvg.org/icons/facebook/default.svg" alt="" width="16" height="16">
+              <img loading="lazy" src="https://thesvg.org/icons/facebook/default.svg" alt="" width="16" height="16">
             </a>
             <a href="#" class="social-link" aria-label="LinkedIn">
-              <img src="https://thesvg.org/icons/linkedin/default.svg" alt="" width="16" height="16">
+              <img loading="lazy" src="https://thesvg.org/icons/linkedin/default.svg" alt="" width="16" height="16">
             </a>
             <a href="#" class="social-link" aria-label="WhatsApp">
-              <img src="https://thesvg.org/icons/whatsapp/default.svg" alt="" width="16" height="16">
+              <img loading="lazy" src="https://thesvg.org/icons/whatsapp/default.svg" alt="" width="16" height="16">
             </a>
           </div>
         </div>
@@ -2058,6 +2152,8 @@
             <li><a href="#cta-final">Falar agora</a></li>
             <li><a href="#faq">Perguntas frequentes</a></li>
             <li><a href="mailto:contato@agenciadedicada.com.br">E-mail</a></li>
+            <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+            <li><a href="termos-de-uso.html">Termos de Uso</a></li>
           </ul>
         </div>
       </div>
@@ -2074,7 +2170,7 @@
   </button>
 
   <script>
-    lucide.createIcons();
+    document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
 
     // ─── NAV SCROLL ───
     const navbar = document.getElementById('navbar');
@@ -2108,12 +2204,12 @@
         document.querySelectorAll('.faq-item.open').forEach(i => {
           i.classList.remove('open');
           i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-          i.querySelector('.faq-a').hidden = true;
+          i.querySelector('.faq-a').setAttribute('aria-hidden', 'true');
         });
         if (!isOpen) {
           item.classList.add('open');
           btn.setAttribute('aria-expanded', 'true');
-          item.querySelector('.faq-a').hidden = false;
+          item.querySelector('.faq-a').setAttribute('aria-hidden', 'false');
         }
       });
     });
