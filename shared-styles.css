@@ -1,0 +1,26 @@
+/* Shared tokens & base styles for both site variations */
+:root {
+  --brand-50: #EEEDF9; --brand-100: #D4D2F0; --brand-200: #A9A5E2;
+  --brand-300: #7D78D3; --brand-400: #524BC4; --brand-500: #2A2490;
+  --brand-600: #1A1565; --brand-700: #0D0B50; --brand-800: #080638; --brand-900: #040320;
+  --electric-400: #6B87FF; --electric-500: #3557FF; --electric-600: #1F3FE0;
+  --cta-400: #FF8A50; --cta-500: #FF6535; --cta-600: #E84E1B;
+  --neutral-0: #FFFFFF; --neutral-50: #F8FAFC; --neutral-100: #F1F5F9;
+  --neutral-200: #E2E8F0; --neutral-400: #94A3B8; --neutral-500: #64748B;
+  --neutral-700: #334155; --neutral-900: #0F172A;
+  --success: #10B981;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); color: #fff; }
+
+.wa-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--cta-500); color: #fff; padding: 18px 32px;
+  border-radius: 12px; font-weight: 700; font-size: 17px; font-family: var(--font-body);
+  text-decoration: none; box-shadow: 0 12px 32px -8px rgba(255,101,53,.5);
+  border: none; cursor: pointer; transition: all 200ms;
+}
+.wa-btn:hover { background: var(--cta-400); transform: translateY(-2px); box-shadow: 0 16px 40px -6px rgba(255,101,53,.6); }
+.wa-btn svg { width: 22px; height: 22px; }
