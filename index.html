@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared-styles.css">
+<script src="assets/app.js" defer></script>
 <style>
   body {
     background: #020112;
@@ -57,6 +58,26 @@
     transition: all 150ms;
   }
   .nav-cta:hover { background: rgba(255,255,255,.14); }
+
+  /* Reset button para nav-cta (antes era <a>) */
+  button.nav-cta { font-family: inherit; line-height: 1; }
+
+  /* TRUST STRIP */
+  .trust-strip {
+    background: rgba(16,185,129,.06);
+    border-bottom: 1px solid rgba(16,185,129,.15);
+  }
+  .trust-strip-inner {
+    display: flex; flex-wrap: wrap; gap: 24px 36px;
+    padding: 12px 32px; justify-content: center;
+    font-size: 13px; color: rgba(255,255,255,.82);
+    font-weight: 500;
+  }
+  .trust-strip-inner span { display: inline-flex; align-items: center; gap: 8px; }
+  .trust-strip-inner svg { width: 16px; height: 16px; color: var(--success, #10B981); flex-shrink: 0; }
+  @media (max-width: 520px) {
+    .trust-strip-inner { gap: 10px 18px; padding: 10px 16px; font-size: 12px; justify-content: flex-start; }
+  }
 
   /* HERO */
   .hero { padding: 80px 0 120px; position: relative; overflow: hidden; }
@@ -114,6 +135,9 @@
     display: flex; justify-content: center;
     filter: drop-shadow(0 40px 60px rgba(0,0,0,.5)) drop-shadow(0 20px 40px rgba(255,101,53,.15));
   }
+  .phone-wrap .sim-tag { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 20; }
+  .chat-list-wrap { position: relative; }
+  .chat-list-wrap .sim-tag--list { position: absolute; top: -14px; left: 16px; z-index: 4; }
   .phone {
     width: 360px; height: 720px;
     background: #0b141a;
@@ -583,6 +607,7 @@
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 10px 30px -6px rgba(37,211,102,.6), 0 4px 12px rgba(0,0,0,.3);
     text-decoration: none; transition: all 200ms; cursor: pointer;
+    border: none; padding: 0; font: inherit;
   }
   .wa-float::before {
     content: ''; position: absolute; inset: 0; border-radius: 50%;
@@ -622,6 +647,19 @@
     .multi-stats { grid-template-columns: 1fr; }
     .chat-list { max-width: 100%; }
   }
+  /* Reduced motion — desativa animações/transições da página inteira */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    .msg { opacity: 1 !important; transform: none !important; }
+    .typing span { opacity: 1 !important; }
+    .hero-kicker .pulse, .speed-badge::before, .chat-row::before, .wa-float::before {
+      animation: none !important; box-shadow: none !important;
+    }
+  }
+
   @media (max-width: 520px) {
     section { padding: 72px 0; }
     .logo { font-size: 15px; gap: 10px; }
@@ -644,21 +682,37 @@
 </head>
 <body>
 
-<nav>
-  <div class="container nav-inner">
-    <div class="logo">
-      <div class="logo-mark"><img src="assets/brand-icon.png" alt="Agência Dedicada"></div>
-      <span>Agência Dedicada</span>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header role="banner">
+  <nav aria-label="Principal">
+    <div class="container nav-inner">
+      <div class="logo">
+        <div class="logo-mark"><img src="assets/brand-icon.png" alt="" aria-hidden="true"></div>
+        <span>Agência Dedicada</span>
+      </div>
+      <div class="nav-links">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#diagnostico">Diagnóstico</a>
+      </div>
+      <button type="button" onclick="openForm()" class="nav-cta">Diagnóstico grátis</button>
     </div>
-    <div class="nav-links">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#calculadora">Calculadora</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#diagnostico">Diagnóstico</a>
-    </div>
-    <a href="#" onclick="openForm();return false;" class="nav-cta">Diagnóstico grátis</a>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+<!-- TRUST STRIP -->
+<aside class="trust-strip" aria-label="Sinais de confiança">
+  <div class="container trust-strip-inner">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Setup em 7 dias</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h12"/></svg> Sem fidelidade</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Dados em conformidade com a LGPD</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Suporte humano 24/7</span>
   </div>
-</nav>
+</aside>
 
 <!-- HERO -->
 <section class="hero">
@@ -672,7 +726,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A12 12 0 0 0 3.6 20.4L2 22l1.68-1.6A12 12 0 1 0 20.52 3.48zM12 21a9 9 0 0 1-4.58-1.26l-.33-.2-3.41.9.91-3.32-.21-.34A9 9 0 1 1 12 21zm5.1-6.75c-.27-.14-1.64-.81-1.89-.9s-.44-.14-.62.14-.71.9-.87 1.08-.32.21-.6.07a7.4 7.4 0 0 1-3.7-3.24c-.28-.48.28-.45.8-1.48a.5.5 0 0 0 0-.47c-.07-.14-.62-1.5-.86-2.05s-.46-.46-.62-.47h-.53a1 1 0 0 0-.74.35 3.1 3.1 0 0 0-1 2.3 5.38 5.38 0 0 0 1.13 2.87 12.33 12.33 0 0 0 4.73 4.18 15.87 15.87 0 0 0 1.58.58 3.8 3.8 0 0 0 1.74.11 2.84 2.84 0 0 0 1.86-1.32 2.31 2.31 0 0 0 .16-1.32c-.07-.12-.26-.19-.54-.33z"/></svg>
           Quero meu diagnóstico gratuito
         </button>
-        <a href="#como-funciona" class="btn-ghost">Ver como funciona →</a>
+        <a href="#como-funciona" class="btn-ghost">Ver metodologia A.G.E.N.D.A ↓</a>
       </div>
       <div class="hero-trust">
         <div class="trust-item">
@@ -689,7 +743,8 @@
         </div>
       </div>
     </div>
-    <div class="phone-wrap">
+    <div class="phone-wrap" role="img" aria-label="Exemplo ilustrativo de conversa no WhatsApp com o agente de IA agendando um test drive">
+      <span class="sim-tag" aria-hidden="true">Exemplo ilustrativo</span>
       <div class="float-card fc-top">
         <div class="ficon">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm4.5 14.09L11 13V7h1.5v5.25l4.75 2.84z"/></svg>
@@ -895,7 +950,9 @@
 <section class="multi-sec">
   <div class="container">
     <div class="multi-grid">
-      <div class="chat-list">
+      <div class="chat-list-wrap" role="img" aria-label="Lista ilustrativa de 5 conversas sendo atendidas em paralelo">
+        <span class="sim-tag sim-tag--list" aria-hidden="true">Exemplo ilustrativo</span>
+        <div class="chat-list">
         <div class="chat-list-head">
           <h4>Conversas</h4>
           <span class="badge">5 ativas agora</span>
@@ -926,7 +983,7 @@
           <div class="c-avatar">RS</div>
           <div class="c-info">
             <div class="n">Ricardo Souza</div>
-            <div class="m">🎤 Mensagem de voz · 0:32</div>
+            <div class="m"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11z"/></svg>Mensagem de voz · 0:32</div>
           </div>
           <div class="c-right"><div class="t">1 min</div><div class="u">1</div></div>
         </div>
@@ -945,6 +1002,7 @@
             <div class="m">Vocês têm o Polo Track 2024 zero?</div>
           </div>
           <div class="c-right"><div class="t">3 min</div><div class="u">3</div></div>
+        </div>
         </div>
       </div>
 
@@ -1184,16 +1242,69 @@
   </div>
 </section>
 
-<footer>
+</main>
+
+<footer class="site-footer">
   <div class="container">
-    <p>Agência Dedicada · Automação e IA para negócios locais · 2026</p>
+    <div class="foot-grid">
+      <div class="brand-col">
+        <div class="logo">
+          <div class="logo-mark"><img src="assets/brand-icon.png" alt="" aria-hidden="true"></div>
+          <span>Agência Dedicada</span>
+        </div>
+        <p>Automação e IA para negócios locais. Agente no WhatsApp que atende, qualifica e agenda em menos de 30 segundos.</p>
+        <div class="socials" aria-label="Redes sociais">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.61 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 2.06-2.06 2.06 2.06 0 0 1-2.06 2.06zM7.12 20.45H3.56V9h3.56z"/></svg>
+          </a>
+          <a href="https://wa.me/5511924246749" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A12 12 0 0 0 3.6 20.4L2 22l1.68-1.6A12 12 0 1 0 20.52 3.48z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#calculadora">Calculadora</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#diagnostico">Diagnóstico</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="privacidade.html">Política de privacidade</a></li>
+          <li><a href="termos.html">Termos de uso</a></li>
+          <li><a href="privacidade.html#lgpd">LGPD</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="https://wa.me/5511924246749" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a href="mailto:contato@agenciadedicada.com.br">contato@agenciadedicada.com.br</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>© 2026 Agência Dedicada · Todos os direitos reservados</p>
+      <p>CNPJ a ser cadastrado · São Paulo, Brasil</p>
+    </div>
   </div>
 </footer>
 
 <!-- Floating WhatsApp -->
-<a href="#" onclick="openForm();return false;" class="wa-float" aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A12 12 0 0 0 3.6 20.4L2 22l1.68-1.6A12 12 0 1 0 20.52 3.48zM12 21a9 9 0 0 1-4.58-1.26l-.33-.2-3.41.9.91-3.32-.21-.34A9 9 0 1 1 12 21zm5.1-6.75c-.27-.14-1.64-.81-1.89-.9s-.44-.14-.62.14-.71.9-.87 1.08-.32.21-.6.07a7.4 7.4 0 0 1-3.7-3.24c-.28-.48.28-.45.8-1.48a.5.5 0 0 0 0-.47c-.07-.14-.62-1.5-.86-2.05s-.46-.46-.62-.47h-.53a1 1 0 0 0-.74.35 3.1 3.1 0 0 0-1 2.3 5.38 5.38 0 0 0 1.13 2.87 12.33 12.33 0 0 0 4.73 4.18 15.87 15.87 0 0 0 1.58.58 3.8 3.8 0 0 0 1.74.11 2.84 2.84 0 0 0 1.86-1.32 2.31 2.31 0 0 0 .16-1.32c-.07-.12-.26-.19-.54-.33z"/></svg>
-</a>
+<button type="button" onclick="openForm()" class="wa-float" aria-label="Abrir diagnóstico gratuito">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A12 12 0 0 0 3.6 20.4L2 22l1.68-1.6A12 12 0 1 0 20.52 3.48zM12 21a9 9 0 0 1-4.58-1.26l-.33-.2-3.41.9.91-3.32-.21-.34A9 9 0 1 1 12 21zm5.1-6.75c-.27-.14-1.64-.81-1.89-.9s-.44-.14-.62.14-.71.9-.87 1.08-.32.21-.6.07a7.4 7.4 0 0 1-3.7-3.24c-.28-.48.28-.45.8-1.48a.5.5 0 0 0 0-.47c-.07-.14-.62-1.5-.86-2.05s-.46-.46-.62-.47h-.53a1 1 0 0 0-.74.35 3.1 3.1 0 0 0-1 2.3 5.38 5.38 0 0 0 1.13 2.87 12.33 12.33 0 0 0 4.73 4.18 15.87 15.87 0 0 0 1.58.58 3.8 3.8 0 0 0 1.74.11 2.84 2.84 0 0 0 1.86-1.32 2.31 2.31 0 0 0 .16-1.32c-.07-.12-.26-.19-.54-.33z"/></svg>
+</button>
 
 <!-- FORM MODAL -->
 <div class="form-overlay" id="form-overlay" role="dialog" aria-modal="true" aria-labelledby="form-title" aria-describedby="form-desc" aria-hidden="true">
@@ -1201,13 +1312,26 @@
     <button class="form-close" onclick="closeForm()" type="button" aria-label="Fechar formulário">×</button>
     <h3 id="form-title">Diagnóstico gratuito</h3>
     <p id="form-desc">Responde em 30 segundos e a gente já manda seu diagnóstico pelo WhatsApp.</p>
-    <form onsubmit="sendWhats(event)">
+    <form onsubmit="sendWhats(event)" novalidate>
       <label class="sr-only" for="f-name">Seu nome</label>
-      <input class="inp" type="text" placeholder="Seu nome" required id="f-name">
+      <input class="inp" type="text" placeholder="Seu nome" required
+             id="f-name" name="nome" autocomplete="name" autocapitalize="words"
+             minlength="2" maxlength="80">
+
       <label class="sr-only" for="f-biz">Nome do negócio</label>
-      <input class="inp" type="text" placeholder="Nome do negócio" required id="f-biz">
+      <input class="inp" type="text" placeholder="Nome do negócio" required
+             id="f-biz" name="negocio" autocomplete="organization"
+             minlength="2" maxlength="120">
+
+      <label class="sr-only" for="f-tel">WhatsApp com DDD</label>
+      <input class="inp" type="tel" placeholder="WhatsApp com DDD (ex: 11 99999-9999)" required
+             id="f-tel" name="telefone" autocomplete="tel-national"
+             inputmode="tel" pattern="[0-9\s()+\-]{10,20}"
+             aria-describedby="f-tel-help">
+      <span id="f-tel-help" class="sr-only">Apenas números, parênteses, espaços, + ou -. Mínimo 10 dígitos.</span>
+
       <label class="sr-only" for="f-niche">Segmento</label>
-      <select class="inp" required id="f-niche">
+      <select class="inp" required id="f-niche" name="segmento">
         <option value="">Segmento</option>
         <option>Concessionária</option>
         <option>Clínica</option>
@@ -1216,114 +1340,32 @@
         <option>Restaurante</option>
         <option>Outro</option>
       </select>
+
       <label class="sr-only" for="f-leads">Leads por mês no WhatsApp</label>
-      <select class="inp" required id="f-leads">
+      <select class="inp" required id="f-leads" name="leads">
         <option value="">Leads por mês no WhatsApp</option>
         <option>Menos de 50</option>
         <option>50 a 200</option>
         <option>200 a 500</option>
         <option>Mais de 500</option>
       </select>
+
+      <label class="consent">
+        <input type="checkbox" id="f-consent" name="consentimento" required>
+        <span>
+          Autorizo a Agência Dedicada a me contatar pelo WhatsApp/e-mail informados e concordo
+          com a <a href="privacidade.html" target="_blank" rel="noopener">política de privacidade</a>
+          nos termos da LGPD.
+        </span>
+      </label>
+
       <button class="wa-btn form-submit" type="submit">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A12 12 0 0 0 3.6 20.4L2 22l1.68-1.6A12 12 0 1 0 20.52 3.48z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A12 12 0 0 0 3.6 20.4L2 22l1.68-1.6A12 12 0 1 0 20.52 3.48z"/></svg>
         Continuar no WhatsApp
       </button>
     </form>
   </div>
 </div>
-
-<script>
-// ── CALCULATOR ──
-const nichePresets = {
-  conc:        { leads: 200, ticket: 85000, atend: 30, label: 'Concessionária' },
-  clinica:     { leads: 150, ticket: 800,   atend: 40, label: 'Clínica' },
-  imob:        { leads: 120, ticket: 450000, atend: 25, label: 'Imobiliária' },
-  academia:    { leads: 80,  ticket: 1800,  atend: 35, label: 'Academia' },
-  restaurante: { leads: 300, ticket: 180,   atend: 45, label: 'Restaurante' }
-};
-const leadsEl = document.getElementById('leads');
-const ticketEl = document.getElementById('ticket');
-const atendEl = document.getElementById('atend');
-function fmt(n) { return n.toLocaleString('pt-BR', { maximumFractionDigits: 0 }); }
-function recalc() {
-  const leads = +leadsEl.value;
-  const ticket = +ticketEl.value;
-  const atend = +atendEl.value;
-  document.getElementById('leads-val').textContent = leads;
-  document.getElementById('ticket-val').textContent = fmt(ticket);
-  document.getElementById('atend-val').textContent = atend;
-  const perdidos = Math.round(leads * (1 - atend/100));
-  const convertidosPerdidos = perdidos * 0.08;
-  const receitaPerdida = convertidosPerdidos * ticket;
-  document.getElementById('leads-perdidos').textContent = perdidos;
-  document.getElementById('resultado').textContent = 'R$ ' + fmt(receitaPerdida);
-}
-[leadsEl, ticketEl, atendEl].forEach(el => el.addEventListener('input', recalc));
-function setNiche(k) {
-  document.querySelectorAll('.niche-chip').forEach(c => c.classList.toggle('active', c.dataset.niche === k));
-  const p = nichePresets[k];
-  leadsEl.value = p.leads; ticketEl.value = p.ticket; atendEl.value = p.atend;
-  recalc();
-}
-recalc();
-
-// ── SPEED SLIDER ──
-const speedData = [
-  { t: '30 segundos',  taxa:'21x', conv:'12%', fech:'78%', color:'good', cap:'<strong>30 segundos:</strong> Ouro. O lead ainda está com o celular na mão, comparando. Você é o primeiro — fecha antes do concorrente.' },
-  { t: '5 minutos',    taxa:'4x',  conv:'6%',  fech:'55%', color:'mid',  cap:'<strong>5 minutos:</strong> Limite. A chance de contato qualificado cai rápido quando o lead espera. Metade dos leads já pode estar conversando com outro.' },
-  { t: '1 hora',       taxa:'1x',  conv:'2%',  fech:'18%', color:'bad',  cap:'<strong>1 hora:</strong> Lead esfriou. O concorrente já mandou proposta. Você responde pra quem já decidiu.' },
-  { t: '4 horas',      taxa:'0.3x',conv:'0.8%',fech:'7%',  color:'bad',  cap:'<strong>4 horas:</strong> Quase perdido. A intenção de compra cai 90%. Só fecha quem não encontrou opção.' },
-  { t: '24 horas',     taxa:'0.1x',conv:'0.2%',fech:'2%',  color:'bad',  cap:'<strong>24 horas:</strong> Perdido. 98% já fechou com outro ou desistiu. Você responde só pra confirmar o churn.' }
-];
-const speedEl = document.getElementById('speed');
-function updateSpeed() {
-  const idx = Math.min(speedData.length - 1, Math.round(+speedEl.value / 25));
-  const d = speedData[idx];
-  document.getElementById('tempo-label').textContent = d.t;
-  const taxa = document.getElementById('taxa'); const conv = document.getElementById('conversao'); const fech = document.getElementById('fechamento');
-  [taxa, conv, fech].forEach(el => { el.classList.remove('good','mid','bad'); el.classList.add(d.color); });
-  taxa.textContent = d.taxa; conv.textContent = d.conv; fech.textContent = d.fech;
-  document.getElementById('speed-cap').innerHTML = d.cap;
-}
-speedEl.addEventListener('input', updateSpeed);
-updateSpeed();
-
-// ── FORM ──
-let lastFocusedEl = null;
-const formOverlay = document.getElementById('form-overlay');
-const formFocusables = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-function openForm() {
-  lastFocusedEl = document.activeElement;
-  formOverlay.classList.add('open');
-  formOverlay.setAttribute('aria-hidden', 'false');
-  document.getElementById('f-name').focus();
-}
-function closeForm() {
-  formOverlay.classList.remove('open');
-  formOverlay.setAttribute('aria-hidden', 'true');
-  if (lastFocusedEl) lastFocusedEl.focus();
-}
-formOverlay.addEventListener('click', e => { if (e.target.id === 'form-overlay') closeForm(); });
-document.addEventListener('keydown', e => {
-  if (!formOverlay.classList.contains('open')) return;
-  if (e.key === 'Escape') closeForm();
-  if (e.key !== 'Tab') return;
-  const focusables = [...formOverlay.querySelectorAll(formFocusables)];
-  const first = focusables[0];
-  const last = focusables[focusables.length - 1];
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-  if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-});
-function sendWhats(e) {
-  e.preventDefault();
-  const name = document.getElementById('f-name').value;
-  const biz = document.getElementById('f-biz').value;
-  const niche = document.getElementById('f-niche').value;
-  const leads = document.getElementById('f-leads').value;
-  const msg = `Oi! Sou ${name}, do ${biz} (${niche}). Recebo ${leads} leads/mês e quero meu diagnóstico gratuito.`;
-  window.open(`https://wa.me/5511924246749?text=${encodeURIComponent(msg)}`, '_blank');
-}
-</script>
 
 </body>
 </html>
