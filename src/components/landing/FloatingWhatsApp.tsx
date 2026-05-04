@@ -8,7 +8,8 @@ export default function FloatingWhatsApp() {
 
   useEffect(() => {
     const onScroll = () => {
-      setShow(window.scrollY > 600);
+      const threshold = Math.max(1800, document.body.scrollHeight * 0.3);
+      setShow(window.scrollY > threshold);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -17,7 +18,7 @@ export default function FloatingWhatsApp() {
 
   useEffect(() => {
     if (!show) return;
-    const t = setTimeout(() => setTipOpen(true), 1200);
+    const t = setTimeout(() => setTipOpen(true), 45000);
     return () => clearTimeout(t);
   }, [show]);
 

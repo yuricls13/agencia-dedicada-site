@@ -71,10 +71,26 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-10 max-w-7xl border-t border-neutral-100 px-5 pt-6 sm:px-8">
-        <p className="text-xs text-neutral-500">
-          © {new Date().getFullYear()} Agência Dedicada. Todos os direitos
-          reservados.
-        </p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-neutral-500">
+            © {new Date().getFullYear()} Agência Dedicada. Todos os direitos
+            reservados. · CNPJ 00.000.000/0001-00
+          </p>
+          <div className="flex gap-4">
+            <a
+              href="/politica-de-privacidade"
+              className="text-xs text-neutral-400 transition-colors hover:text-neutral-600"
+            >
+              Política de Privacidade
+            </a>
+            <a
+              href="/termos-de-uso"
+              className="text-xs text-neutral-400 transition-colors hover:text-neutral-600"
+            >
+              Termos de Uso
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

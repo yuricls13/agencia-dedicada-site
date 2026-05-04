@@ -9,6 +9,8 @@ import StepsSection from "@/components/landing/StepsSection";
 import AudienceSection from "@/components/landing/AudienceSection";
 import ComparisonSection from "@/components/landing/ComparisonSection";
 import ValueSection from "@/components/landing/ValueSection";
+import TestimonialsSection from "@/components/landing/TestimonialsSection";
+import PricingSection from "@/components/landing/PricingSection";
 import FaqSection from "@/components/landing/FaqSection";
 import FinalCta from "@/components/landing/FinalCta";
 import FloatingWhatsApp from "@/components/landing/FloatingWhatsApp";
@@ -30,6 +32,8 @@ export default function Index() {
       <AudienceSection />
       <ComparisonSection />
       <ValueSection />
+      <TestimonialsSection />
+      <PricingSection />
       <FaqSection />
       <FinalCta />
       <Footer />

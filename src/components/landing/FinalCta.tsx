@@ -37,9 +37,15 @@ export default function FinalCta() {
           </a>
         </div>
 
-        <p className="mt-6 text-xs uppercase tracking-[0.18em] text-brand-100/70">
-          Implantação consultiva · 7 a 14 dias · Atendimento 24/7
-        </p>
+        <div className="mt-6 flex flex-col items-center gap-2">
+          <p className="text-xs uppercase tracking-[0.18em] text-brand-100/70">
+            Implantação consultiva · 7 a 14 dias · Atendimento 24/7
+          </p>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-cta-500/30 bg-cta-500/10 px-3 py-1 text-xs font-medium text-cta-300">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-cta-400" />
+            Vagas abertas para implantação em maio
+          </span>
+        </div>
       </div>
     </section>
   );
