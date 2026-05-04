@@ -95,13 +95,12 @@ export default function PricingSection() {
                 </li>
               ))}
             </ul>
-            <div className="relative mt-6 rounded-xl border border-brand-200 bg-white px-4 py-3 text-center">
-              <p className="text-xs text-neutral-500">Investimento mensal</p>
-              <p className="mt-1 text-2xl font-bold text-brand-700">
-                A partir de R$ 897<span className="text-base font-normal">/mês</span>
+            <div className="relative mt-6 rounded-xl border border-brand-200 bg-brand-50/50 px-5 py-4 text-center">
+              <p className="text-sm font-medium text-brand-800">
+                Custa menos do que manter um atendente
               </p>
-              <p className="mt-0.5 text-xs text-neutral-400">
-                implantação consultiva inclusa
+              <p className="mt-1 text-xs text-neutral-500">
+                Proposta personalizada conforme seu volume e processo
               </p>
             </div>
             <a
@@ -114,7 +113,7 @@ export default function PricingSection() {
               }}
               className="relative mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-cta-500 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-cta-500/30 transition-all hover:bg-cta-600"
             >
-              Solicitar proposta
+              Solicitar proposta personalizada
               <ArrowRight className="h-4 w-4" />
             </a>
             <p className="relative mt-3 text-center text-xs text-neutral-500">
