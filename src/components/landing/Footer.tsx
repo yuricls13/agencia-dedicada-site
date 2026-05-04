@@ -74,7 +74,7 @@ export default function Footer() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-neutral-500">
             © {new Date().getFullYear()} Agência Dedicada. Todos os direitos
-            reservados. · CNPJ 00.000.000/0001-00
+            reservados.
           </p>
           <div className="flex gap-4">
             <a

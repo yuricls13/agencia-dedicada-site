@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import PainsMarquee from "@/components/landing/PainsMarquee";
@@ -17,7 +19,7 @@ import FloatingWhatsApp from "@/components/landing/FloatingWhatsApp";
 import Footer from "@/components/landing/Footer";
 import InActionSection from "@/components/landing/InActionSection";
 
-export default function Index() {
+export default function Page() {
   return (
     <main className="min-h-screen bg-neutral-50 font-sans text-neutral-900 antialiased">
       <Header />
